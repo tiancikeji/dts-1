@@ -3,3 +3,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 logout
+<a href="<c:url value="/"/>">return home</a>
