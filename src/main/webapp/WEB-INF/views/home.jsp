@@ -12,8 +12,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>NEINE预警系统</title>
 <link rel="shortcut icon" href="favicon.ico" />
-<link rel="stylesheet" href="<c:url value="assets/css/reset.css" />" />
-<link rel="stylesheet" href="<c:url value="assets/css/screen.css"/>" />
+<link rel="stylesheet" href="css/reset.css" />
+<link rel="stylesheet" href="css/screen.css" />
 <!--[if IE]>
 <script src="js/ie/html5.js"></script>
 <![endif]-->
