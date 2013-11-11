@@ -6,7 +6,7 @@ public class Cable {
 	private String length;
 	private String signal1;
 	private String signal2;
-	private String datetime;
+	private String created_at;
 	private double temperature;
 	
 	public Integer getId() {
@@ -39,11 +39,11 @@ public class Cable {
 	public void setSignal2(String signal2) {
 		this.signal2 = signal2;
 	}
-	public String getDatetime() {
-		return datetime;
+	public String getCreated_at() {
+		return created_at;
 	}
-	public void setDatetime(String datetime) {
-		this.datetime = datetime;
+	public void setCreated_at(String created_at) {
+		this.created_at = created_at;
 	}
 	public double getTemperature() {
 		return temperature;
