@@ -11,14 +11,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>NEINE预警系统</title>
 <link rel="shortcut icon" href="favicon.ico" />
-<link rel="stylesheet" href="<c:url value="assets/css/reset.css"/>" />
-<link rel="stylesheet" href="<c:url value="assets/css/screen.css"/>" />
+<link rel="stylesheet" href="<c:url value="/assets/css/reset.css"/>" />
+<link rel="stylesheet" href="<c:url value="/assets/css/screen.css"/>" />
 <!--[if IE]>
-<script src="<c:url value="assets/js/ie/html5.js"/>"></script>
+<script src="<c:url value="/assets/js/ie/html5.js"/>"></script>
 <![endif]-->
 <!--[if lt IE 9]>
 <style type="text/css">.css3{behavior: url(js/ie/css3.htc);-pie-lazy-init: true; position: relative;}.ie6png{-pie-png-fix: true;}</style>
-<script src="<c:url value="assets/js/ie/ie9.js"/>"></script>
+<script src="<c:url value="/assets/js/ie/ie9.js"/>"></script>
 <![endif]-->
 <!--[if IE 6]>
 <script src="js/ie/png.js"></script>
@@ -31,7 +31,7 @@
 
 		<h1 id="logo">
 			<a href="index.html">
-				<img src="<c:url value="assets/images/logo.png"/>"> alt="NEINE预警系统" title="NEINE预警系统" />
+				<img src="<c:url value="/assets/images/logo.png"/>"> alt="NEINE预警系统" title="NEINE预警系统" />
 			</a>
 		</h1><!-- logo -->
 
@@ -46,7 +46,7 @@
                 <li class="divider-v"></li>
                 <li>
                     <p><a class="nav-help" href="help.html">帮助</a></p>
-                    <p id="localTime"><script src="<c:url value="assets/js/localtime.js"/>"></script></p>
+                    <p id="localTime"><script src="<c:url value="/assets/js/localtime.js"/>"></script></p>
                 </li>
             </ul>
 	    </nav><!-- nav -->

@@ -75,7 +75,7 @@
                                     <th>S2</th>
                                     <th>S3</th>
                                     <th>S4</th>
-                                    <th>S5</th>
+                                    <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,7 +87,7 @@
                                     <td>${cable.signal2 }</td>
                                     <td>${cable.length }</td>
                                     <td>${cable.temperature }</td>
-                                    <td>=GetHiDat</td>
+                                    <td>查看</td>
                                 </tr>
                             </c:forEach>
                             </tbody>

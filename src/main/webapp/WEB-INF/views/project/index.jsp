@@ -10,9 +10,9 @@
             <h3>项目信息</h3>
             <div class="menu-content">
                 <ul>
-                    <li class="mactive"><a href="pro.html">监测对象</a></li>
-                    <li><a href="pro-syspic.html">系统拓补图</a></li>
-                    <li><a href="pro-sysinfo.html">系统概况</a></li>
+                    <li class="mactive"><a href="<c:url value="/project" />">监测对象</a></li>
+                    <li><a href="<c:url value="/project/graph" />" >系统拓补图</a></li>
+                    <li><a href="<c:url value="/project/info" />" >系统概况</a></li>
                 </ul>
             </div>
         </div>

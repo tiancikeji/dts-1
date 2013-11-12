@@ -12,8 +12,8 @@
             <div class="menu-content">
                 <ul>
                     <li class="mactive"><a href="<c:url value="/settings/sensor" />">传感器设置</a></li>
-                    <li><a href="<c:url value="/settings/alert" />">分区设置</a></li>
-                    <li><a href="<c:url value="/settings/" />">通讯设置</a></li>
+                    <li><a href="<c:url value="/settings/alert" />">报警设置</a></li>
+                    <li><a href="<c:url value="/settings/communication" />">通讯设置</a></li>
                     <li><a href="<c:url value="/settings/system" />">系统设置</a></li>
                 </ul>
             </div>
@@ -24,17 +24,17 @@
 
         <div class="mod-1">
             <div class="hd-1 cf">
-                <h2>传感器设置</h2>
+                <h2>通讯设置</h2>
             </div>
             <div class="bd-1">
                 
                 <div class="mod-2">
                     <div class="hd-2 cf">
-                        <h2>基本计算参数</h2>
+                        <h2>光开关设置</h2>
                     </div>
                     <div class="bd-2">
                         <div class="wrap-cont">
-                            基本计算参数
+                            光开关设置
                         </div>
                         <div class="btn-wrap">
                             <input class="btn btn-blue" type="button" value="保 存" />
@@ -44,11 +44,11 @@
 
                 <div class="mod-2">
                     <div class="hd-2 cf">
-                        <h2>台阶修正</h2>
+                        <h2>模块设置</h2>
                     </div>
                     <div class="bd-2">
                         <div class="wrap-cont">
-                            台阶修正
+                            模块设置
                         </div>
                         <div class="btn-wrap">
                             <input class="btn btn-blue" type="button" value="保 存" />
@@ -58,11 +58,25 @@
 
                 <div class="mod-2">
                     <div class="hd-2 cf">
-                        <h2>高级设置</h2>
+                        <h2>转发设置</h2>
                     </div>
                     <div class="bd-2">
                         <div class="wrap-cont">
-                            高级设置
+                            转发设置
+                        </div>
+                        <div class="btn-wrap">
+                            <input class="btn btn-blue" type="button" value="保 存" />
+                        </div>
+                    </div>
+                </div><!-- mod-2 -->
+
+                <div class="mod-2">
+                    <div class="hd-2 cf">
+                        <h2>报警联动</h2>
+                    </div>
+                    <div class="bd-2">
+                        <div class="wrap-cont">
+                            报警联动
                         </div>
                         <div class="btn-wrap">
                             <input class="btn btn-blue" type="button" value="保 存" />

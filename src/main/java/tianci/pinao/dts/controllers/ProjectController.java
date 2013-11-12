@@ -13,4 +13,16 @@ public class ProjectController {
 		
 		return "project/index";
 	}
+	
+	@RequestMapping(value="/project/info",method = RequestMethod.GET)
+	public String info(Model model){
+		
+		return "project/info";
+	}
+	
+	@RequestMapping(value="/project/graph",method = RequestMethod.GET)
+	public String graph(Model model){
+		
+		return "project/graph";
+	}
 }
