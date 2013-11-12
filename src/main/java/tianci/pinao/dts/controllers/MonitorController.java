@@ -16,7 +16,7 @@ public class MonitorController {
 
 	@RequestMapping(value="/monitor" , method = RequestMethod.GET)
 	public String index(Model model){
-//		System.out.print(cableService.findAll().size());
+		model.addAttribute("cablelist", cableService.findAll());
 		return "monitor/index";
 	}
 }
