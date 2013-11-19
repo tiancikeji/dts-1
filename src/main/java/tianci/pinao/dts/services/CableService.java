@@ -1,6 +1,6 @@
 package tianci.pinao.dts.services;
 
-import java.sql.ResultSet;
+import java.sql.ResultSet; 
 import java.sql.SQLException;
 import java.util.List;
 
@@ -23,6 +23,7 @@ public class CableService {
 	public List<Cable> findAll(){
 		String sql = "SELECT * FROM CABLE";
 		List<Cable> cableList = jdbcTemplate.query(sql, new RowMapper<Cable>() {
+			
 			public Cable mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Cable cable = new Cable();
 				cable.setId(rs.getInt("id"));
@@ -36,4 +37,6 @@ public class CableService {
 		});
 		return cableList;
 	}
+	
+	
 }

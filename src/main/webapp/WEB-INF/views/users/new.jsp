@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,12 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
-    <form name="form1" action="index" method="post">
+ <form name="form1" action="add" method="post">
     <table width="300" border="1">
         <tr>
-            <td colspan="2">登录窗口</td>
+            <td colspan="2">增加窗口</td>
         </tr>
         <tr>
                 <td>用户名</td>
@@ -25,13 +21,9 @@
                 <td><input type="password" name="password" size="10"></td>
         </tr>
         <tr>
-            <td colspan="2">
-            <input type="submit" name="submit" value="登录">
-                <a href="new">注册新用户</a></td>
+            <td colspan="2"><input type="submit" name="submit" value="登录">
         </tr>
     </table>
     </form>
-
-    
 </body>
 </html>

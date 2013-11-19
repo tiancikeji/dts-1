@@ -1,0 +1,38 @@
+package tianci.pinao.dts.models;
+
+import java.util.Date;
+
+public class User {
+	private Integer id;
+	private String name;
+	private String password;
+	private String created_at;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getCreated_at() {
+		return created_at;
+	}
+	public void setCreated_at(String created_at) {
+		this.created_at = created_at;
+	}
+	
+
+	
+	
+}
