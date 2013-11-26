@@ -21,7 +21,7 @@ public class CableService {
 	JdbcTemplate jdbcTemplate;
 	
 	public List<Cable> findAll(){
-		String sql = "SELECT * FROM CABLE";
+		String sql = "SELECT * FROM CABLE limit 100";
 		List<Cable> cableList = jdbcTemplate.query(sql, new RowMapper<Cable>() {
 			public Cable mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Cable cable = new Cable();

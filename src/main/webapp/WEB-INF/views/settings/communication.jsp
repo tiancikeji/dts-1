@@ -12,6 +12,7 @@
             <div class="menu-content">
                 <ul>
                     <li class="mactive"><a href="<c:url value="/settings/sensor" />">传感器设置</a></li>
+                    <li><a href="<c:url value="/settings/area" />">厂区设置</a></li>
                     <li><a href="<c:url value="/settings/alert" />">报警设置</a></li>
                     <li><a href="<c:url value="/settings/communication" />">通讯设置</a></li>
                     <li><a href="<c:url value="/settings/system" />">系统设置</a></li>

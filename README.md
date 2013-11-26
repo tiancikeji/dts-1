@@ -52,3 +52,16 @@ list view iterator
 
 add login form in login page
 
+
+
+create table area 
+(
+   id                   int(11)                        NOT NULL AUTO_INCREMENT,
+   name                 char                           null,
+   created_at           datetime                       null,
+   parent_id            int                            null,
+   background           char(255)                      null,
+   scope_start          int                            null,
+   scope_end            int                            null,
+   constraint PK_AREA primary key clustered (id)
+);
