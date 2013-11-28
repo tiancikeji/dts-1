@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <%@ include file="../includes/head.jsp" %>
+
 
 <div id="container" class="grid-elastic cf">
 
@@ -56,7 +58,7 @@
                 <div class="panes-2">
                     <div>
                         <div class="wrap-img">
-                            <img alt="图" src="<c:url value="assets/images/pic/pic3.jpg"/>">
+                            <img alt="图" src="<c:url value="/assets/images/pic/pic3.jpg"/>" />
                         </div>
                     </div>
                     <div>
@@ -73,8 +75,8 @@
                                     <th>时间</th>
                                     <th>S1</th>
                                     <th>S2</th>
-                                    <th>S3</th>
-                                    <th>S4</th>
+                                    <th>长度</th>
+                                    <th>温度</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -161,23 +163,5 @@
     </div><!-- //content -->   
 
 </div><!-- //container -->
-
-<script src="<c:url value="assets/js/ie/modernizr.js"/>"></script>
-<script src="<c:url value="assets/js/jquery/jquery.js"/>"></script>
-<script src="<c:url value="assets/js/jquery/jquery.tools.min.js"/>"></script>
-<script>
-$(function() {
-	// tabs1
-    // http://jquerytools.org/demos/tabs/index.html
-    $("ul#Tabs-1").tabs("div.panes-1 > div"); 
-    // tabs2
-    $("ul#Tabs-2").tabs("div.panes-2 > div"); 
-});
-</script>
-
-<link rel="stylesheet" href="<c:url value="assets/js/ztree/css/zTreeStyle/zTreeStyle.css"/>"> type="text/css">
-<script type="text/javascript" src="<c:url value="assets/js/ztree/jquery.ztree.core-3.5.js"/>"></script>
-<script type="text/javascript" src="<c:url value="assets/js/tree_init.js"/>" />
-
 </body>
 </html>

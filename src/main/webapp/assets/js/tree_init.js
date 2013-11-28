@@ -1,4 +1,4 @@
-var setting = {
+ var setting = {
         view: {
             showIcon: showIconForTree
         },
@@ -6,26 +6,30 @@ var setting = {
             simpleData: {
                 enable: true
             }
-        }
+        },
+        callback: {
+    		onClick: zTreeOnClick
+    	}
     };
-
-    var zNodes =[
-        { id:1, pId:0, name:"厂区n", open:true},
-        { id:11, pId:1, name:"电缆沟n"},
-        { id:111, pId:11, name:"区段n"},
-        { id:112, pId:11, name:"区段n"},
-        { id:113, pId:11, name:"区段n"},
-        { id:114, pId:11, name:"区段n"},
-        { id:12, pId:1, name:"电缆沟w"},
-        { id:121, pId:12, name:"区段n"},
-        { id:122, pId:12, name:"区段n"},
-        { id:123, pId:12, name:"区段n"},
-        { id:124, pId:12, name:"区段n"},
-        { id:13, pId:1, name:"电缆沟n", isParent:true},
-    ];
 
     function showIconForTree(treeId, treeNode) {
         return !treeNode.isParent;
     };
+    
+    function zTreeOnClick(event, treeId, treeNode) {
+    	var url = "http://localhost:8080/dts/monitor/"+ treeNode.id;
+//        alert(treeNode.tId + ", " + treeNode.name +" ,"+ treeNode.id);
+    	window.location.href = url;
+    	
+    };
 
-    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    $.ajax( {  
+        url : "http://localhost:8080/dts/settings/area.json",  
+        type : "get",  
+        dataType : "json",  
+        success : init_tree
+    });  
+    
+    function init_tree(data){
+       	 $.fn.zTree.init($("#treeDemo"), setting,data );
+    }
