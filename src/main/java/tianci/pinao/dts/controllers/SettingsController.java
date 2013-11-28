@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,6 +55,17 @@ public class SettingsController {
 		return "settings/area";
 	}
 	
+	
+	@RequestMapping(value="/settings/area/delete/{id}" , method = RequestMethod.GET)
+	public String area_delete(@PathVariable int id,RedirectAttributes attributes, Model model){
+		if(areaService.delete(id)){
+			attributes.addFlashAttribute("status", "删除成功");
+		}else{
+			attributes.addFlashAttribute("status", "删除失败");
+		}
+		
+		return "redirect:/settings/area";
+	}
 	
 	@RequestMapping(value="/settings/area.json" , method = RequestMethod.GET)
 	public @ResponseBody List<Area> area_json(Model model){

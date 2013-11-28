@@ -75,39 +75,23 @@
                                     <th>时间</th>
                                     <th>S1</th>
                                     <th>S2</th>
-                                    <th>S3</th>
-                                    <th>S4</th>
-                                    <th>S5</th>
+                                    <th>长度</th>
+                                    <th>温度</th>
+                                    <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            <c:forEach var="cable" items="${cablelist }">
                                 <tr>
-                                    <td>1</td>
-                                    <td>2013年02月27日 15:13:32</td>
-                                    <td>=GetHiDat</td>
-                                    <td>=GetHiDat</td>
-                                    <td>=GetHiDat</td>
-                                    <td>=GetHiDat</td>
-                                    <td>=GetHiDat</td>
+                                    <td>${cable.id }</td>
+                                    <td>${cable.created_at }</td>
+                                    <td>${cable.signal1 }</td>
+                                    <td>${cable.signal2 }</td>
+                                    <td>${cable.length }</td>
+                                    <td>${cable.temperature }</td>
+                                    <td>查看</td>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2013年02月27日 15:13:32</td>
-                                    <td>=GetHiDat</td>
-                                    <td>=GetHiDat</td>
-                                    <td>=GetHiDat</td>
-                                    <td>=GetHiDat</td>
-                                    <td>=GetHiDat</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2013年02月27日 15:13:32</td>
-                                    <td>=GetHiDat</td>
-                                    <td>=GetHiDat</td>
-                                    <td>=GetHiDat</td>
-                                    <td>=GetHiDat</td>
-                                    <td>=GetHiDat</td>
-                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>

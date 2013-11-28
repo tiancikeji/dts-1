@@ -32,11 +32,33 @@ public class AreaService {
 		return false;
 	}
 	
+	public Boolean delete(int id){
+		int result = jdbcTemplate.update("DELETE FROM AREA where id = ?", new Object[]{id});
+		if(result >= 0 ){
+			return true;
+		}
+		return false;
+	}
+	
+	public Area findById(int id){
+		 String sql = "SELECT * FROM AREA WHERE id = ?";
+		  Object[] params = new Object[] {id};
+		  List<Area> areaList = jdbcTemplate.query(sql,params,new AreaMapper());
+		  if(areaList.isEmpty()){
+		   return null;
+		  }
+		  return (Area)areaList.get(0);
+	}
+	
 	public List<Area> list(){
 		String sql = "SELECT * FROM AREA ";
-		List<Area> areaList = jdbcTemplate.query(sql, new RowMapper<Area>() {
-			public Area mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Area area = new Area();
+		List<Area> areaList = jdbcTemplate.query(sql, new AreaMapper());
+		return areaList;
+	}
+	
+	 protected class AreaMapper implements RowMapper {
+		  public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			  Area area = new Area();
 				area.setId(rs.getInt("id"));
 				area.setName(rs.getString("name"));
 				area.setBackground(rs.getString("background"));
@@ -45,10 +67,6 @@ public class AreaService {
 				area.setScope_start(rs.getInt("scope_start"));
 				area.setCreated_at(rs.getString("created_at"));
 				return area;
-			}
-		});
-		return areaList;
+		  }
 	}
-	
-	
 }
