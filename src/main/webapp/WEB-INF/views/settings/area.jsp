@@ -49,7 +49,7 @@
 										<li><label for="radio">名称：</label>
 											<input name="name" value="" />
 										</li>
-										<li><label for="radio">背景图片：</label><input name="background" value="" /></li>
+										<li><label for="radio">背景图片：</label><input type="file" name="background" value="" /></li>
 										<li><label for="radio">范围：</label>
 										<input name="scope_start" value="" />-<input
 								name="scope_end" value="" />

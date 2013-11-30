@@ -58,7 +58,7 @@
                 <div class="panes-2">
                     <div>
                         <div class="wrap-img">
-                            <img alt="图" src="<c:url value="/assets/images/pic/pic3.jpg"/>" />
+                            <img alt="图" src="<c:url value="${area.background }"/>" />
                         </div>
                     </div>
                     <div>
