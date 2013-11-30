@@ -57,8 +57,9 @@
 
                 <div class="panes-2">
                     <div>
+                    ${area}
                         <div class="wrap-img">
-                            <img alt="图" src="<c:url value="${area.background }"/>" />
+                           <img id="picture" alt="图" src="http://localhost:8080/dts/assets/upload/${area}" />
                         </div>
                     </div>
                     <div>
@@ -164,4 +165,5 @@
 
 </div><!-- //container -->
 </body>
+
 </html>

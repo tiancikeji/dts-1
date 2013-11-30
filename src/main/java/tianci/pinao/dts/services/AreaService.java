@@ -24,8 +24,11 @@ public class AreaService {
 		Date currentTime = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateString = formatter.format(currentTime);
-		int result = jdbcTemplate.update("INSERT INTO AREA(name,created_at,parent_id,background,scope_start,scope_end) values(?,?,?,?,?,?)",
-				new Object[]{area.getName(),dateString,area.getpId(),area.getBackground(),area.getScope_start(),area.getScope_end()});
+		String sql = "INSERT INTO AREA(name,created_at,parent_id,background,scope_start,scope_end) "
+				+ "values(?,?,?,?,?,?)";
+		//int result = jdbcTemplate.update(sql,new Object[]{area.getName(),dateString,area.getpId(),area.getBackground(),area.getScope_start(),area.getScope_end()});
+		int result = jdbcTemplate.update(sql,area.getName(),dateString,area.getpId(),area.getBackground(),area.getScope_start(),area.getScope_end());
+//			\	,new Object[]{,dateString,area.getpId(),area.getBackground(),area.getScope_start(),area.getScope_end()});
 		if(result >= 0 ){
 			return true;
 		}

@@ -23,7 +23,7 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-
+	
 	<context:component-scan base-package="tianci.pinao.dts" />
 
 	<beans:bean id="dataSource"
@@ -31,7 +31,12 @@
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<beans:property name="url" value="jdbc:mysql://localhost:3306/dts" />
 		<beans:property name="username" value="root" />
+<<<<<<< Updated upstream
 		<beans:property name="password" value="root" />
+=======
+		<beans:property name="password" value="123456" />
+
+>>>>>>> Stashed changes
 	</beans:bean>
 
 	<beans:bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
@@ -39,5 +44,15 @@
 			<beans:ref bean="dataSource" />
 		</beans:property>
 	</beans:bean>
+	    <!-- 开启SpringMVC上传下载功能 -->
+  <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+
+
+
+
+
+
+
 
 </beans:beans>

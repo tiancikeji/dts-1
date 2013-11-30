@@ -37,7 +37,7 @@
 					<div class="bd-2">
 						<div class="wrap-cont">
 							<div class="wrap-cont">
-								<form action="<c:url value="/settings/area"/>" method="post">
+								<form action="<c:url value="/settings/area"/>" method="post"  enctype="multipart/form-data">
 									<ul class="form-list">
 										<li><label for="radio"> 上级：</label> <select
 											name="pId" class="select-2 ipt-f3">
@@ -49,7 +49,7 @@
 										<li><label for="radio">名称：</label>
 											<input name="name" value="" />
 										</li>
-										<li><label for="radio">背景图片：</label><input type="file" name="background" value="" /></li>
+										<li><label for="radio">背景图片：</label><input type="file" name="file"  value="上传文件" /></li>
 										<li><label for="radio">范围：</label>
 										<input name="scope_start" value="" />-<input
 								name="scope_end" value="" />
