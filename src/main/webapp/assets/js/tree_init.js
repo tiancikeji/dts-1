@@ -18,7 +18,7 @@
     
     function zTreeOnClick(event, treeId, treeNode) {
     	var url = "http://localhost:8080/dts/monitor/"+ treeNode.id;
-       alert(treeNode.tId + ", " + treeNode.name +" ,"+ treeNode.id);
+//       alert(treeNode.tId + ", " + treeNode.name +" ,"+ treeNode.id);
     	window.location.href = url;
     
     };
