@@ -87,9 +87,6 @@ public class SettingsController {
 	@RequestMapping(value="/settings/area" , method = RequestMethod.POST)
 	public String area_save(@ModelAttribute Area area,RedirectAttributes attributes,Model model,HttpServletRequest request){
 		model.addAttribute("areaList", areaService.list());
-	
-	  
-	       
 	        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;   
 	     
 	        MultipartFile file = multipartRequest.getFile("file");   

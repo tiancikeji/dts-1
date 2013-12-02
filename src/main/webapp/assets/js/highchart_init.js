@@ -1,3 +1,4 @@
+
 $(function() {
 	var cables = new Array();
 	$.ajax({
@@ -40,5 +41,6 @@ $(function() {
 			} ]
 		});
 	}
+
 
 });
