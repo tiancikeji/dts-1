@@ -65,3 +65,8 @@ create table area
    scope_end            int                            null,
    constraint PK_AREA primary key clustered (id)
 );
+
+
+
+git usage
+1.先git status 查看状态
