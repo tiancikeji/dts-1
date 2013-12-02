@@ -43,14 +43,14 @@ public class MonitorController {
 	
 	@RequestMapping(value="/monitor/{area_id}.json" , method = RequestMethod.GET)
 	public @ResponseBody List<Cable>  findByAreaId_json(@PathVariable int area_id,Model model){
-		String aa=null;
+	//	String aa=null;
 		Area area = areaService.findById(area_id);
 		List<Cable> areaList = cableService.findByArea(area);
-		for (int i = 0; i < areaList.size(); i++) {
-		aa=areaList.get(i).getLength();
-		}
-		JSONObject json=new JSONObject();
-		json.put("aa", aa);
+		//for (int i = 0; i < areaList.size(); i++) {
+		//aa=areaList.get(i).getLength();
+		//}
+	//	JSONObject json=new JSONObject();
+	//	json.put("aa", aa);
 		return areaList;
 	}
 }

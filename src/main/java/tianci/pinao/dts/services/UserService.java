@@ -1,6 +1,6 @@
 package tianci.pinao.dts.services;
 
-import java.sql.ResultSet;
+import java.sql.ResultSet; 
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,7 +14,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
-import tianci.piao.dts.md5.MD5Util;
+
+
+import tianci.pinao.dts.Util.MD5Util;
 import tianci.pinao.dts.models.User;
 
 @Component

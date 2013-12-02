@@ -88,11 +88,11 @@ public class SettingsController {
 	public String area_save(@ModelAttribute Area area,RedirectAttributes attributes,Model model,HttpServletRequest request){
 		model.addAttribute("areaList", areaService.list());
 	        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;   
-	     
+	     //获取表单二进制name=file的那个图片
 	        MultipartFile file = multipartRequest.getFile("file");   
-	      
+	      //获取图片名字
 	        String realFileName = file.getOriginalFilename();   
-	   
+	   //创建文件夹
 	        String ctxPath = request.getSession().getServletContext().getRealPath(   
 	                "/")   
 	                + "\\"+"assets\\" + "upload\\";   

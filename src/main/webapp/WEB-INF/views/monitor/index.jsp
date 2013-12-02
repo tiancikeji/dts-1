@@ -58,7 +58,16 @@
                 <div class="panes-2">
                     <div>
                         <div class="wrap-img">
-                           <img id="picture" alt="图" src="http://localhost:8080/dts/assets/upload/${area.background}" />
+                        　　<c:if test="${!empty area }">
+                        <!-- <c:url value="/assets/upload/${area}"/>
+                        <img id="picture" alt="图" src="http://localhost:8080/dts/assets/upload/${area}" />
+                        /> -->
+ 					<img id="picture" alt="图" src="<c:url value="/assets/upload/${area}"/>" />
+　			</c:if>
+			　<c:if test="${empty area }">
+ 					<h3><a href="<c:url value="/settings/area"/>">您没插入图片，请点击重新插入</a></h3>
+　			</c:if>
+                         
                         </div>
                     </div>
                     <div>
