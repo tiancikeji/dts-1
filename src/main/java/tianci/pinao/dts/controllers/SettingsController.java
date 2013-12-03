@@ -107,8 +107,11 @@ public class SettingsController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}    
-		area.setBackground(realFileName);
+			}  
+
+	        String str="assets\\" + "upload\\"+realFileName; 
+	        
+	        area.setBackground(str);
 		
 		
 		if(areaService.add(area)){
