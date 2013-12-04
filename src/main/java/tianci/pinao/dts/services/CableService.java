@@ -2,6 +2,9 @@ package tianci.pinao.dts.services;
 
 import java.sql.ResultSet; 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,19 +37,34 @@ public class CableService {
 		if(area == null)
 			return null;
 		StringBuffer sql = new StringBuffer("SELECT * FROM CABLE ");
+		String timeQuery = getTime();
 		
 		String wheresql = "  WHERE length >= "+area.getScope_start()+" and  length <= "+area.getScope_end();
 		sql.append(wheresql);
+		
+		sql.append(timeQuery);
 		if(currPage != 0){
 			sql.append("  LIMIT "+(currPage-1)*maxLinks+","+maxLinks*currPage);
 		}
-		System.out.println(sql.toString());
+
 		List<Cable> cableList = jdbcTemplate.query(sql.toString(),new CableMapper());
 		result.put("result", cableList);
-		
+		System.out.println(sql);
 		StringBuffer countSql = new StringBuffer("SELECT COUNT(*) FROM CABLE");
-		result.put("totalPages", jdbcTemplate.queryForInt(countSql.append(wheresql).toString()));
+		result.put("totalPages", jdbcTemplate.queryForInt(countSql.append(wheresql).append(timeQuery).toString()));
 		return result;
+	}
+
+	private String getTime() {
+		SimpleDateFormat   formatter   =   new   SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); 
+		long currentTime = System.currentTimeMillis();
+		Date   curDate   =   new   Date(System.currentTimeMillis());//获取当前时间     
+		String   currentStr   =   formatter.format(curDate); 
+		long last4sec = currentTime - 4000;
+		Date  lastDate = new Date(last4sec);
+		String lastStr = formatter.format(lastDate); 
+		String timeQuery = " AND created_at <=' "+ currentStr +"' AND created_at >= '"+lastStr+"'";
+		return timeQuery;
 	}
 	
 	 protected class CableMapper implements RowMapper{
