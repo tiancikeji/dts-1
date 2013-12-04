@@ -28,6 +28,9 @@
 <script src="<c:url value="/assets/js/jquery/jquery.js"/>"></script>
 <script src="<c:url value="/assets/js/jquery/jquery.tools.min.js"/>" ></script>
 <script>
+var _contextPath = "${pageContext.request.contextPath}";
+var _requestPath = "${requestPath}";
+//alert(_contextPath);
 $(function() {
 
 	// tabs1

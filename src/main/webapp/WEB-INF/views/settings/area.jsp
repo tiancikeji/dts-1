@@ -68,8 +68,7 @@
 									<td>名次</td>
 									<td>父级</td>
 									<td>背景</td>
-									<td>范围上限</td>
-									<td>范围下限</td>
+									<td>范围</td>
 									<td>创建时间</td>
 									<td>操作</td>
 								</tr>
@@ -78,8 +77,7 @@
 										<td>${area.name}</td>
 										<td>${area.pId }</td>
 										<td>${area.background }</td>
-										<td>${area.scope_start }</td>
-										<td>${area.scope_end }</td>
+										<td>${area.scope_start }-${area.scope_end }</td>
 										<td>${area.created_at}</td>
 										<td><a href="<c:url value="/settings/area/delete/${area.id }"/>">删除</a></td>
 									</tr>

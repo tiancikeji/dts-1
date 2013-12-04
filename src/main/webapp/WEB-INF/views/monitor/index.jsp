@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/WEB-INF/tlds/paginator" prefix="paginator" %>
 
 <%@ include file="../includes/head.jsp"%>
 
@@ -65,11 +66,7 @@
 					<div>
 						<div class="wrap-img">
 							<c:if test="${!empty area }">
-								<!-- <c:url value="/assets/upload/${area}"/>
-                        <img id="picture" alt="图" src="http://localhost:8080/dts/assets/upload/${area}" />
-                        /> -->
-								<img id="picture" alt="图"
-									src="<c:url value="/assets/upload/${area}"/>" />
+								<img id="picture" alt="图" src="<c:url value="${area}"/>" />
 							</c:if>
 							<c:if test="${empty area }">
 								<h3>
@@ -86,11 +83,6 @@
 						</div>
 						<hr />
 						<h3 class="title-2">实时数据</h3>
-						<c:if test="${!empty count }">
-							<ul class="page-num-ul clearfix">
-								<li>共${count}条记录&nbsp;&nbsp; ${pageIndex}/${totalpage }页</li>
-							</ul>
-						</c:if>
 						<table class="table table-auto">
 							<thead>
 								<tr>
@@ -117,26 +109,8 @@
 								</c:forEach>
 							</tbody>
 						</table>
-						<c:if test="${!empty count }">
-							<c:if test="${ pageIndex > 1 }">
-								<a href="<c:url value="/checkmonitor/1?pageIndex=1"/>">首页</a>
-								<a
-									href="<c:url value="/checkmonitor/${pageIndex - 1}?pageIndex=${pageIndex - 1}"/>">上一页</a>
-							</c:if>
-							<c:if test="${pageIndex < totalpage}">
-								<a
-									href="<c:url value="/checkmonitor/${pageIndex + 1}?pageIndex=${pageIndex + 1}"/>">下一页</a>
-								<a
-									href="<c:url value="/checkmonitor/${totalpage}?pageIndex=${totalpage}"/>">最后一页</a>
-							</c:if>
-							<span class="page-go-form"><label>跳转至</label> <input
-								style="width: 2%;" type="text" name="inputPage" id="inputPage"
-								class="page-key" />页
-								<button type="button" class="page-btn"
-									onClick='jump_to(document.forms[0],document.getElementById("inputPage").value,${totalpage })'
-									onmouseover="this.className='over'"
-									onmouseout="this.className='out'">GO</button> </span>
-						</c:if>
+					<paginator:display maxLinks="10" currPage="${page}" totalPages="${totalPages}" uri="${requestPath}?page=##" />
+						
 					</div>
 					<div>
 						<table class="table table-auto">
@@ -211,26 +185,4 @@
 </div>
 <!-- //container -->
 </body>
-<script type="text/javascript">
- function page_nav(frm,num,totalpage){
-	 if(num>totalpage){
-		 window.location.href="/dts/checkmonitor/"+totalpage+"?pageIndex="+totalpage; 
-	 }else{
-		 window.location.href="/dts/checkmonitor/"+num+"?pageIndex="+num;
-	 }
- }
- function jump_to(frm,pageno,totalpage ){
-	 
-	 var regexp=/^\d+$/;
-	 if(!regexp.test(pageno)){
-		 alert("请输入正确数字");
-		 return false;
-	 }else{
-		 
-		page_nav(frm,pageno,totalpage);
-	 }
- }
-
-
-</script>
 </html>

@@ -109,7 +109,7 @@ public class SettingsController {
 				e.printStackTrace();
 			}  
 
-	        String str="assets\\" + "upload\\"+realFileName; 
+	        String str="//assets//" + "upload//"+realFileName; 
 	        
 	        area.setBackground(str);
 		

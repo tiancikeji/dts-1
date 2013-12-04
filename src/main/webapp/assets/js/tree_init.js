@@ -1,4 +1,5 @@
- var setting = {
+
+var setting = {
         view: {
             showIcon: showIconForTree
         },
@@ -17,13 +18,13 @@
     };
     
     function zTreeOnClick(event, treeId, treeNode) {
-    	var url = "http://localhost:8080/dts/monitor/"+ treeNode.id;
+    	var url = _contextPath+"/monitor/"+ treeNode.id;
 //       alert(treeNode.tId + ", " + treeNode.name +" ,"+ treeNode.id);
     	window.location.href = url;
     
     };
     $.ajax( {  
-        url : "http://localhost:8080/dts/settings/area.json",  
+        url : _contextPath+"/settings/area.json",  
         type : "get",  
         dataType : "json",  
         success : init_tree

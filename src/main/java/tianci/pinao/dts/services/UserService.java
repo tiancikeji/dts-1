@@ -16,8 +16,9 @@ import org.springframework.stereotype.Service;
 
 
 
-import tianci.pinao.dts.Util.MD5Util;
+
 import tianci.pinao.dts.models.User;
+import tianci.pinao.dts.util.MD5Util;
 
 @Component
 public class UserService {

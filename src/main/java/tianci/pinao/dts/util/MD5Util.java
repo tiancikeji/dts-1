@@ -1,4 +1,4 @@
-package tianci.pinao.dts.Util;
+package tianci.pinao.dts.util;
 import java.security.MessageDigest;  
 public class MD5Util {  
     public final static String MD5(String s) {  

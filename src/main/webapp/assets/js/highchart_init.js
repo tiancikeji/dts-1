@@ -1,15 +1,14 @@
-
 $(function() {
 	var cables = new Array();
 	$.ajax({
-		url : "http://localhost:8080/dts/monitor/19.json",
+		url : _requestPath+".json",
 		type : "get",
 		dataType : "json",
 		success : init_data
 	});
 	function init_data(data) {
 		for (var i = 0; i < data.length; i++) {
-			cables[i] = [ data[i].length, data[i].temperature ];
+			cables[i] = [ parseInt(data[i].length), data[i].temperature ];
 		}
 		$('#highcharts').highcharts({
 			chart : {

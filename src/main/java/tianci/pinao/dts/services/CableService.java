@@ -2,7 +2,9 @@ package tianci.pinao.dts.services;
 
 import java.sql.ResultSet; 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -11,7 +13,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import tianci.pinao.dts.Util.page;
 import tianci.pinao.dts.models.Area;
 import tianci.pinao.dts.models.Cable;
 
@@ -27,38 +28,25 @@ public class CableService {
 		List<Cable> cableList = jdbcTemplate.query(sql, new CableMapper());
 		return cableList;
 	}
-	//查询总行数
-	public int findcount(){
-		String sql="SELECT COUNT(*) FROM CABLE limit 100";
-		int rowCount = this.jdbcTemplate.queryForInt(sql);
-		return rowCount  ;
-	}
-	
-	
-	
-	//分页查询
-	public List<Cable>  find(int now,int dan){
-		page p=new page();
-		p.setNow(now);
-		p.setDan(dan);
-		int startrow=p.startrow();
-		int endrow=p.endrow();
-		Object[] params={startrow,endrow};	
-		String sql="SELECT *  FROM cable  LIMIT ?,?";
-		List<Cable> List =jdbcTemplate.query(sql,params,new CableMapper());
-		//List<Cable> List = jdbcTemplate.query(sql,new CableMapper());
-		return List;
-	}
-	
-	
-	
 
-	public List<Cable> findByArea(Area area) {
+	public Map findByArea(Area area,int currPage,int maxLinks) {
+		Map result = new HashMap();
 		if(area == null)
 			return null;
-		String sql = "SELECT * FROM CABLE where id >= "+area.getScope_start()+" and  id <= "+area.getScope_end()+" limit 100";
-		List<Cable> cableList = jdbcTemplate.query(sql,new CableMapper());
-		return cableList;
+		StringBuffer sql = new StringBuffer("SELECT * FROM CABLE ");
+		
+		String wheresql = "  WHERE length >= "+area.getScope_start()+" and  length <= "+area.getScope_end();
+		sql.append(wheresql);
+		if(currPage != 0){
+			sql.append("  LIMIT "+(currPage-1)*maxLinks+","+maxLinks*currPage);
+		}
+		System.out.println(sql.toString());
+		List<Cable> cableList = jdbcTemplate.query(sql.toString(),new CableMapper());
+		result.put("result", cableList);
+		
+		StringBuffer countSql = new StringBuffer("SELECT COUNT(*) FROM CABLE");
+		result.put("totalPages", jdbcTemplate.queryForInt(countSql.append(wheresql).toString()));
+		return result;
 	}
 	
 	 protected class CableMapper implements RowMapper{
