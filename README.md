@@ -70,3 +70,41 @@ create table area
 
 git usage
 1.先git status 查看状态
+
+/*==============================================================*/
+/* Table: sensor                                                */
+/*==============================================================*/
+create table sensor 
+(
+   id                   int                            not null,
+   name                 char(255)                      null,
+   constraint PK_SENSOR primary key clustered (id)
+);
+
+
+/*==============================================================*/
+/* Table: channel                                               */
+/*==============================================================*/
+create table channel 
+(
+   id                   int                            not null,
+   name                 char(255)                      null,
+   sensor_id            int                            null,
+   constraint PK_CHANNEL primary key clustered (id)
+);
+
+
+/*==============================================================*/
+/* Table: area_channel                                          */
+/*==============================================================*/
+create table area_channel 
+(
+   area_id              int                            not null,
+   channel_id           int                            not null,
+   scope_start          int                            null,
+   scope_end            int                            null,
+   constraint PK_AREA_CHANNEL primary key clustered (area_id, channel_id)
+);
+
+
+

@@ -31,11 +31,10 @@ public class MonitorController {
 	AreaService areaService;
 
 	
-//	@RequestMapping(value="/monitor" , method = RequestMethod.GET)
-//	public String index(Model model){
-//		int pageIndex=1;
-//		return checkindex(model,pageIndex);
-//	}
+	@RequestMapping(value="/monitor" , method = RequestMethod.GET)
+	public String index(Model model){
+		return "monitor/index";
+	}
 	
 	
 	@RequestMapping(value="/monitor/{area_id}" , method = RequestMethod.GET)
