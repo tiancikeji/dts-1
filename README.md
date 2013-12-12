@@ -22,9 +22,9 @@ create table cable
 /*==============================================================*/
 create table "user" 
 (
-   id                   int                            null,
+   id                   int                            NOT NULL AUTO_INCREMENT,
    name                 char(255)                      null,
-   created_at           datetime                       null,
+   created_at           datetime(255)                  null,
    password             char(255)                      null
 );
 

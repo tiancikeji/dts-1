@@ -35,10 +35,30 @@
                     </div>
                     <div class="bd-2">
                         <div class="wrap-cont">
-                            光开关设置
-                        </div>
+                     <form action="<c:url value="/settings/addsensor"/>" method="post" >
+                        <ul>
+                        	<li><label for="radio">名称：</label>
+								<input name="name" style=" width:74px" value="" />
+							</li><br/>
+							<li><input class="btn btn-blue" type="submit" value="保存" />
+							</li>
+                        </ul>
+                      </form>
+                     </div>
                         <div class="btn-wrap">
-                            <input class="btn btn-blue" type="button" value="保 存" />
+                            	<table   class="table table-auto">
+								<tr>
+									<td>名字</td>
+									<td>操作</td>
+								</tr>
+								<c:forEach var="sensor" items="${sensorList}">
+									<tr>
+										<td>${sensor.name}</td>
+										<!-- <td><a href="<c:url value="/settings/sensor/update/${sensor.id }"/>">修改</a></td>-->
+										<td><a href="<c:url value="/settings/sensor/delete/${sensor.id }"/>">删除</a></td>
+									</tr>
+								</c:forEach>
+							</table>
                         </div>
                     </div>
                 </div><!-- mod-2 -->
@@ -49,10 +69,35 @@
                     </div>
                     <div class="bd-2">
                         <div class="wrap-cont">
-                            模块设置
+                     <form action="<c:url value="/settings/addchannel"/>" method="post" >
+                        <ul>
+                        	<li><label for="radio"> 设备：</label> 
+										<select	name="sensor_id" class="select-2 ipt-f3"  style=" width:100px">
+												<option value="0">无</option>
+												<c:forEach var="sensor" items="${sensorList}">
+													<option  value="${sensor.id }">${sensor.name }</option>
+												</c:forEach>
+										</select></li><br/>
+                        	<li><label for="radio">名称：</label>
+								<input name="channelname" style=" width:74px" value="" />
+							</li><br/>
+							<li><input class="btn btn-blue" type="submit" value="保存" />
+							</li>
+                        </ul>
+                      </form>
                         </div>
-                        <div class="btn-wrap">
-                            <input class="btn btn-blue" type="button" value="保 存" />
+                         <div class="btn-wrap">
+                            	<table   class="table table-auto">
+								<tr>
+									<td>名字</td>
+									<td>操作</td>
+								</tr>
+					<c:forEach var="channel" items="${channelList}">
+								<tr>
+								<td>${channel.channelname}</td>
+								<td><a href="<c:url value="/settings/channel/delete/${channel.id }"/>">删除</a></td>
+						</c:forEach>
+							</table>
                         </div>
                     </div>
                 </div><!-- mod-2 -->
