@@ -50,7 +50,17 @@
 											<input name="name" value="" />
 										</li>
 										<li><label for="radio">背景图片：</label><input type="file" name="file"  value="上传文件" /></li>
-										<li><label for="radio">范围：</label>
+										<li>
+										<label for="radio">通道：</label>
+										<select
+											name="area_channel" class="select-2 ipt-f3">
+												<option value="0">无</option>
+												<c:forEach var="channel" items="${channelList}">
+													<option value="${channel.id }">${channel.channelname }</option>
+												</c:forEach>
+										</select></li>
+										<li>
+										<label for="radio">范围：</label>
 										<input name="scope_start" value="" />-<input
 								name="scope_end" value="" />
 										</li>

@@ -28,10 +28,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 
+
+
 import tianci.pinao.dts.models.Area;
 import tianci.pinao.dts.models.Channel;
 import tianci.pinao.dts.models.Sensor;
 import tianci.pinao.dts.services.AreaService;
+import tianci.pinao.dts.services.ChannelService;
+import tianci.pinao.dts.services.SensorService;
 
 
 
@@ -40,6 +44,12 @@ public class SettingsController {
 
 	@Autowired
 	AreaService areaService;
+	
+	@Autowired
+	ChannelService channelService;
+	
+	@Autowired
+	SensorService sensorService;
 	
 
 	@RequestMapping(value="/settings" , method = RequestMethod.GET)
@@ -57,7 +67,7 @@ public class SettingsController {
 //增加管道
 	@RequestMapping(value="/settings/addchannel" , method = RequestMethod.POST)
 	public String addchanel(Model model,RedirectAttributes attributes,Channel channel){
-		if(areaService.addChannel(channel)){
+		if(channelService.add(channel)){
 			attributes.addFlashAttribute("status", "添加成功");
 		}else{
 			attributes.addFlashAttribute("status", "添加失败");			
@@ -68,7 +78,7 @@ public class SettingsController {
 	//管道删除  
 @RequestMapping(value="/settings/channel/delete/{id}",method=RequestMethod.GET)
 public String deleteChannel(@PathVariable int id,RedirectAttributes attributes){
-	if(areaService.deleteChannel(id)){
+	if(channelService.delete(id)){
 		attributes.addFlashAttribute("status", "删除成功");
 		}else{
 			attributes.addFlashAttribute("status", "删除失败");
@@ -80,7 +90,7 @@ public String deleteChannel(@PathVariable int id,RedirectAttributes attributes){
 	//增加设备
 	@RequestMapping(value="/settings/addsensor" , method = RequestMethod.POST)
 	public String addsensor(Model model,HttpServletRequest request,@ModelAttribute Sensor sensor,RedirectAttributes attributes){
-		if(areaService.addSensor(sensor)){
+		if(sensorService.add(sensor)){
 			attributes.addFlashAttribute("status", "添加成功");
 			}else{
 				attributes.addFlashAttribute("status", "添加失败");
@@ -91,7 +101,7 @@ public String deleteChannel(@PathVariable int id,RedirectAttributes attributes){
 	
 	@RequestMapping(value="/settings/sensor/delete/{id}" ,method=RequestMethod.GET)
 	public String delete(@PathVariable int id, RedirectAttributes attributes,Model model){
-		if(areaService.deletesensor(id)){
+		if(sensorService.delete(id)){
 			attributes.addFlashAttribute("status", "删除成功");
 		}else{
 			attributes.addFlashAttribute("status", "删除失败");
@@ -102,9 +112,9 @@ public String deleteChannel(@PathVariable int id,RedirectAttributes attributes){
 	//全查询 发送管道和设备
 	@RequestMapping(value="/settings/communication" , method = RequestMethod.GET)
 	public String communication(Model model){
-		List<Sensor> sensorList = areaService.findall();
+		List<Sensor> sensorList = sensorService.findall();
 		model.addAttribute("sensorList", sensorList);
-		model.addAttribute("channelList",areaService.findallchannel());
+		model.addAttribute("channelList",channelService.findall());
 		return "settings/communication";
 	}
 	
@@ -118,6 +128,7 @@ public String deleteChannel(@PathVariable int id,RedirectAttributes attributes){
 	public String area(Model model,HttpServletRequest request){
 		List<Area> areaList = areaService.list();
 		model.addAttribute("areaList", areaList);
+		model.addAttribute("channelList",channelService.findall());
 		return "settings/area";
 	}
 	
@@ -138,6 +149,7 @@ public String deleteChannel(@PathVariable int id,RedirectAttributes attributes){
 	@RequestMapping(value="/settings/area.json" , method = RequestMethod.GET)
 	public @ResponseBody List<Area> area_json(Model model){
 		List<Area> areaList = areaService.list();
+		
 		return areaList;
 	}
 
