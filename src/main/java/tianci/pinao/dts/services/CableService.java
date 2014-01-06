@@ -27,7 +27,7 @@ public class CableService {
 	JdbcTemplate jdbcTemplate;
 	
 	public List<Cable> findAll(){
-		String sql = "SELECT * FROM CABLE limit 100";
+		String sql = "SELECT * FROM dts.CABLE limit 100";
 		List<Cable> cableList = jdbcTemplate.query(sql, new CableMapper());
 		return cableList;
 	}
@@ -36,7 +36,7 @@ public class CableService {
 		Map result = new HashMap();
 		if(area == null)
 			return null;
-		StringBuffer sql = new StringBuffer("SELECT * FROM CABLE ");
+		StringBuffer sql = new StringBuffer("SELECT * FROM dts.CABLE ");
 		String timeQuery = getTime();
 		
 		String wheresql = "  WHERE length >= "+area.getScope_start()+" and  length <= "+area.getScope_end();
@@ -50,7 +50,7 @@ public class CableService {
 		List<Cable> cableList = jdbcTemplate.query(sql.toString(),new CableMapper());
 		result.put("result", cableList);
 		System.out.println(sql);
-		StringBuffer countSql = new StringBuffer("SELECT COUNT(*) FROM CABLE");
+		StringBuffer countSql = new StringBuffer("SELECT COUNT(*) FROM dts.CABLE");
 		result.put("totalPages", jdbcTemplate.queryForInt(countSql.append(wheresql).append(timeQuery).toString()));
 		return result;
 	}

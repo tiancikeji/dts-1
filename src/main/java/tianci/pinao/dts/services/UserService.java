@@ -28,7 +28,7 @@ public class UserService {
 
 	public List<User> check(User user) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT * FROM USER where status=1");
+		sql.append("SELECT * FROM dts.USER where status=1");
 		if (user.getId() != null) {
 			sql.append(" and id=" + user.getId() + "");
 		}
@@ -50,7 +50,7 @@ public class UserService {
 	// 增加
 	public int add(User user) {
 		String password =MD5Util.MD5( user.getPassword());
-		String sql = "insert into User (name, password,status,created_at) values (?, ?,1,sysdate())";
+		String sql = "insert into dts.User (name, password,status,created_at) values (?, ?,1,sysdate())";
 		return this.jdbcTemplate
 				.update(sql, user.getName(), password);
 	}
@@ -58,7 +58,7 @@ public class UserService {
 	// 根据name查询
 	public int login(User user,HttpServletRequest request) {
 		String password =MD5Util.MD5( user.getPassword());
-		String sql = "SELECT * FROM USER where status=1 and name='"
+		String sql = "SELECT * FROM dts.USER where status=1 and name='"
 				+ user.getName() + "' and password = '" + password
 				+ "'";
 		List<User> list = this.jdbcTemplate.query(sql, new RowMapper<User>() {
@@ -88,12 +88,12 @@ public class UserService {
 	}
 
 	public int delete(User user) {
-		String sql = "update User set status=0 where id=" + user.getId() + "";
+		String sql = "update dts.User set status=0 where id=" + user.getId() + "";
 		return jdbcTemplate.update(sql);
 	}
 
 	public int updates(User user) {
-		String sql = "update User set name='" + user.getName()
+		String sql = "update dts.User set name='" + user.getName()
 				+ "', password='" + user.getPassword() + "'where id="
 				+ user.getId() + " and status=1";
 		int res = jdbcTemplate.update(sql);
@@ -102,7 +102,7 @@ public class UserService {
 
 	// 批量删除
 	public int deleteall(int a) {
-		String sql = "update User set status=0 where id=" + a + "";
+		String sql = "update dts.User set status=0 where id=" + a + "";
 		int re = jdbcTemplate.update(sql);
 		return re;
 	}
@@ -110,7 +110,7 @@ public class UserService {
 	//根据id查询全部选项
 	public List<User> findidall(int id) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("select * from User where status=1");
+		sb.append("select * from dts.User where status=1");
 		if (id != 0) {
 			sb.append(" and id=" + id + "");
 		}

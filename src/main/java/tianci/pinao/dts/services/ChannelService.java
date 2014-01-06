@@ -18,14 +18,14 @@ public class ChannelService {
 	JdbcTemplate jdbcTemplate;
 	// 管道全查询
 	public List<Channel> findall() {
-		String sql = "SELECT * FROM channel";
+		String sql = "SELECT * FROM dts.channel";
 		List<Channel> ChannelList = jdbcTemplate.query(sql, new ChannelMapper());
 		return ChannelList;
 	}
 
 	// 管道增加 
 	public Boolean add(Channel channel) {
-		String sql = "INSERT INTO CHANNEL(name,sensor_id)" + "values(?,?)";
+		String sql = "INSERT INTO dts.CHANNEL(name,sensor_id)" + "values(?,?)";
 		int result = jdbcTemplate.update(sql, new Object[] { channel.getChannelname(),
 				channel.getSensor_id() });
 		if (result > 0) {
@@ -36,7 +36,7 @@ public class ChannelService {
 
 	// 管道删除
 	public Boolean delete(int id) {
-		String sql = "delete from channel where id=?";
+		String sql = "delete from dts.channel where id=?";
 		int result = jdbcTemplate.update(sql, new Object[] { id });
 		if (result > 0) {
 			return true;

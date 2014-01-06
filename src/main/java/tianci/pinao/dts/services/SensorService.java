@@ -18,7 +18,7 @@ public class SensorService {
 	JdbcTemplate jdbcTemplate;	
 	// 设备全查询 增加 修改 删除
 	public List<Sensor> findall() {
-		String sql = "SELECT * FROM Sensor ";
+		String sql = "SELECT * FROM dts.Sensor ";
 		List<Sensor> SensorList = jdbcTemplate.query(sql, new SensorMapper());
 		return SensorList;
 	}
@@ -34,7 +34,7 @@ public class SensorService {
 
 	// 设备 增加
 	public boolean add(Sensor sensor) {
-		String sql = "INSERT INTO SENSOR(name)" + "values(?)";
+		String sql = "INSERT INTO dts.SENSOR(name)" + "values(?)";
 		int result = jdbcTemplate
 				.update(sql, new Object[] { sensor.getName() });
 		if (result >= 0) {
@@ -45,7 +45,7 @@ public class SensorService {
 
 	// 设备 删除
 	public Boolean delete(int id) {
-		int result = jdbcTemplate.update("DELETE FROM SENSOR where id = ?",
+		int result = jdbcTemplate.update("DELETE FROM dts.SENSOR where id = ?",
 				new Object[] { id });
 		if (result >= 0) {
 			return true;

@@ -31,7 +31,7 @@
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<beans:property name="url" value="jdbc:mysql://localhost:3306/dts" />
 		<beans:property name="username" value="root" />
-<beans:property name="password" value="root" />
+<beans:property name="password" value="123456" />
 
 	</beans:bean>
 
@@ -42,13 +42,44 @@
 	</beans:bean>
 	    <!-- 开启SpringMVC上传下载功能 -->
   <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
-
-
-
-
-
-
-
-
-
+	    
+    <beans:bean id="saveTemTask" class ="tianci.pinao.dts.tasks.SaveTemTask" />
+    <beans:bean id="readTemTask" class ="tianci.pinao.dts.tasks.ReadTemTask" />
+    <beans:bean id="temReader" class ="tianci.pinao.dts.sal.TemReader" />
+		
+	<beans:bean id="saveTemTaskJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<beans:property name="targetObject" ref="saveTemTask" />
+		<beans:property name="targetMethod" value="run" />
+	</beans:bean>
+	<beans:bean id="readTemTaskJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<beans:property name="targetObject" ref="readTemTask" />
+		<beans:property name="targetMethod" value="run" />
+	</beans:bean>
+	
+	<beans:bean id="saveTemTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<beans:property name="jobDetail" ref="saveTemTaskJob" />
+		<beans:property name="cronExpression" value="0/4 * * * * ?" />
+	</beans:bean>
+	<beans:bean id="readTemTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<beans:property name="jobDetail" ref="readTemTaskJob" />
+		<beans:property name="cronExpression" value="0 * * * * ?" />
+	</beans:bean>
+	
+	<beans:bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<beans:property name="taskExecutor">
+			<beans:bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+				<beans:property name="corePoolSize" value="40" />
+				<beans:property name="maxPoolSize" value="500" />
+				<beans:property name="queueCapacity" value="10" />
+				<beans:property name="waitForTasksToCompleteOnShutdown" value="false" />
+			</beans:bean>
+		</beans:property>
+		<beans:property name="triggers">
+			<beans:list>
+				<!-- 定时任务 -->
+                <beans:ref bean="saveTemTaskTrigger" />
+                <beans:ref bean="readTemTaskTrigger" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
 </beans:beans>

@@ -25,7 +25,7 @@ public class AreaService {
 		Date currentTime = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateString = formatter.format(currentTime);
-		String sql = "INSERT INTO AREA(name,created_at,parent_id,background,scope_start,scope_end) "
+		String sql = "INSERT INTO dts.AREA(name,created_at,parent_id,background,scope_start,scope_end) "
 				+ "values(?,?,?,?,?,?)";
 		// int result = jdbcTemplate.update(sql,new
 		// Object[]{area.getName(),dateString,area.getpId(),area.getBackground(),area.getScope_start(),area.getScope_end()});
@@ -41,7 +41,7 @@ public class AreaService {
 	}
 
 	public Boolean delete(int id) {
-		int result = jdbcTemplate.update("DELETE FROM AREA where id = ?",
+		int result = jdbcTemplate.update("DELETE FROM dts.AREA where id = ?",
 				new Object[] { id });
 		if (result >= 0) {
 			return true;
@@ -50,7 +50,7 @@ public class AreaService {
 	}
 
 	public Area findById(int id) {
-		String sql = "SELECT * FROM AREA WHERE id = ?";
+		String sql = "SELECT * FROM dts.AREA WHERE id = ?";
 		Object[] params = new Object[] { id };
 		List<Area> areaList = jdbcTemplate.query(sql, params, new AreaMapper());
 		if (areaList.isEmpty()) {
@@ -60,7 +60,7 @@ public class AreaService {
 	}
 
 	public List<Area> list() {
-		String sql = "SELECT * FROM AREA ";
+		String sql = "SELECT * FROM dts.AREA ";
 		List<Area> areaList = jdbcTemplate.query(sql, new AreaMapper());
 		return areaList;
 	}
