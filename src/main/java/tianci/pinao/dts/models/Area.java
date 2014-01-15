@@ -1,5 +1,7 @@
 package tianci.pinao.dts.models;
 
+import java.util.List;
+
 public class Area {
 	private int id;
 	private String name;
@@ -11,6 +13,13 @@ public class Area {
 	private boolean isParent;
 	private boolean open;
 	
+	private List<AreaChannel> areaChannels;
+	
+	private List<Integer> channelids;
+	
+	private List<Integer> scopestarts;
+	
+	private List<Integer> scopeends;
 	
 	public boolean isOpen() {
 		open = true;
@@ -75,6 +84,46 @@ public class Area {
 	}
 	public void setScope_end(int scope_end) {
 		this.scope_end = scope_end;
+	}
+
+
+	public List<AreaChannel> getAreaChannels() {
+		return areaChannels;
+	}
+
+
+	public void setAreaChannels(List<AreaChannel> areaChannels) {
+		this.areaChannels = areaChannels;
+	}
+
+
+	public List<Integer> getChannelids() {
+		return channelids;
+	}
+
+
+	public void setChannelids(List<Integer> channelids) {
+		this.channelids = channelids;
+	}
+
+
+	public List<Integer> getScopestarts() {
+		return scopestarts;
+	}
+
+
+	public void setScopestarts(List<Integer> scopestarts) {
+		this.scopestarts = scopestarts;
+	}
+
+
+	public List<Integer> getScopeends() {
+		return scopeends;
+	}
+
+
+	public void setScopeends(List<Integer> scopeends) {
+		this.scopeends = scopeends;
 	}
 	
 }

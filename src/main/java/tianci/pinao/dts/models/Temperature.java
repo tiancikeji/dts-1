@@ -7,42 +7,20 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class Temperature {
-
-	private int switchCom;
-	
-	private int port;
 	
 	private int channel;
 	
-	private int length;
+	private String tem;
 	
-	private double stock;
+	private String stock;
 	
-	private double unstock;
+	private String unstock;
 	
 	private double referTem;
-	
-	private double tem;
 	
 	private int ret;
 	
 	private Date date;
-
-	public int getSwitchCom() {
-		return switchCom;
-	}
-
-	public void setSwitchCom(int switchCom) {
-		this.switchCom = switchCom;
-	}
-
-	public int getPort() {
-		return port;
-	}
-
-	public void setPort(int port) {
-		this.port = port;
-	}
 
 	public int getChannel() {
 		return channel;
@@ -52,27 +30,19 @@ public class Temperature {
 		this.channel = channel;
 	}
 
-	public int getLength() {
-		return length;
-	}
-
-	public void setLength(int length) {
-		this.length = length;
-	}
-
-	public double getStock() {
+	public String getStock() {
 		return stock;
 	}
 
-	public void setStock(double stock) {
+	public void setStock(String stock) {
 		this.stock = stock;
 	}
 
-	public double getUnstock() {
+	public String getUnstock() {
 		return unstock;
 	}
 
-	public void setUnstock(double unstock) {
+	public void setUnstock(String unstock) {
 		this.unstock = unstock;
 	}
 
@@ -84,11 +54,11 @@ public class Temperature {
 		this.referTem = referTem;
 	}
 
-	public double getTem() {
+	public String getTem() {
 		return tem;
 	}
 
-	public void setTem(double tem) {
+	public void setTem(String tem) {
 		this.tem = tem;
 	}
 

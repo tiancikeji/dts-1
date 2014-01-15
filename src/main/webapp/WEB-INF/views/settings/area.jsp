@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <%@ include file="../includes/head.jsp"%>
 
@@ -51,21 +52,28 @@
 										</li>
 										<li><label for="radio">背景图片：</label><input type="file" name="file"  value="上传文件" /></li>
 										<li>
-										<label for="radio">通道：</label>
-										<select
-											name="area_channel" class="select-2 ipt-f3">
-												<option value="0">无</option>
-												<c:forEach var="channel" items="${channelList}">
-													<option value="${channel.id }">${channel.channelname }</option>
-												</c:forEach>
-										</select></li>
-										<li>
-										<label for="radio">范围：</label>
-										<input name="scope_start" value="" />-<input
-								name="scope_end" value="" />
-										</li>
-										<li><input class="btn btn-blue"
-								type="submit" value="保存" />
+										<br />
+										<input type="button" class="btn btn-blue" id="b1" value="添加通道" onclick="add()" />
+			                           	<table class="table table-auto" id="addtr">
+											<tr>
+												<td>通道</td>
+												<td colspan="2">范围</td>
+												<td>操作</td>
+											</tr>
+											<tr>
+												<td>
+													<select name="channelids" class="select-2 ipt-f3">
+														<c:forEach var="channelI" items="${channels}">
+															<option value="${channelI.channel}">${channelI.channel}</option>
+														</c:forEach>
+													</select>
+												</td>
+												<td><input name="scopestarts" style=" width:74px" value="" /></td>
+												<td><input name="scopeends" style=" width:74px" value="" /></td>
+												<td><a href="javascript:void(0);" onclick="deleteRow(this)">删除</a></td>
+											</tr>
+										</table>
+										<li><input class="btn btn-blue" type="submit" value="保存" />
 										</li>
 									</ul>
 								</form>
@@ -87,7 +95,12 @@
 										<td>${area.name}</td>
 										<td>${area.pId }</td>
 										<td>${area.background }</td>
-										<td>${area.scope_start }-${area.scope_end }</td>
+										<td>
+											<c:forEach var="areaChannel" items="${area.areaChannels}">
+												${areaChannel.channelId}: ${areaChannel.scopeStart} - ${areaChannel.scopeEnd}
+												<br />
+											</c:forEach>
+										</td>
 										<td>${area.created_at}</td>
 										<td><a href="<c:url value="/settings/area/delete/${area.id }"/>">删除</a></td>
 									</tr>
@@ -112,4 +125,17 @@
 </div>
 <!-- //container -->
 </body>
+<script>
+	function add(){
+		 var oTr = document.getElementById("addtr").rows[1];
+		 var newTr = oTr.cloneNode(true);
+		 document.getElementById("addtr").getElementsByTagName("tbody")[0].appendChild(newTr);
+		 //newTr.cells[0].firstChild.value = newTr.rowIndex;
+		 document.getElementById("b1").disabled = newTr.rowIndex == 10;
+	}
+	
+	function deleteRow(obj){
+		document.getElementById("addtr").getElementsByTagName("tbody")[0].removeChild(document.getElementById("addtr").rows[obj.parentNode.parentNode.rowIndex]);
+	}
+</script>
 </html>

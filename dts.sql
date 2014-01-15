@@ -48,15 +48,40 @@ CREATE TABLE `sensor` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 # temperature
 CREATE TABLE `temperature` (
-  `switch_com` int(10) NOT NULL,
-  `port` int(10) NOT NULL,
-  `channel` int(10) NOT NULL,
-  `length` int(10) NOT NULL,
-  `stock` double NOT NULL,
-  `unstock` double NOT NULL,
-  `refer_tem` double NOT NULL,
-  `tem` double NOT NULL,
-  `date` datetime DEFAULT NULL,
-  KEY `tem_sw` (`switch_com`,`port`, `channel`)
+	`channel` int(10) NOT NULL,
+	`tem` MEDIUMTEXT NOT NULL,
+	`stock` MEDIUMTEXT DEFAULT NULL, -- 后台配置1是否存
+	`unstock` MEDIUMTEXT DEFAULT NULL, -- 后台配置1是否存
+	`refer_tem` double DEFAULT NULL, -- 后台配置2是否存
+	`date` datetime NOT NULL,
+  KEY `tm_key` (`channel`,`date`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+CREATE TABLE `temperature_event` (
+	`channel` int(10) NOT NULL,
+	`tem` MEDIUMTEXT NOT NULL,
+	`stock` MEDIUMTEXT DEFAULT NULL, -- 后台配置1是否存
+	`unstock` MEDIUMTEXT DEFAULT NULL, -- 后台配置1是否存
+	`refer_tem` double DEFAULT NULL, -- 后台配置2是否存
+	`date` datetime NOT NULL,
+  KEY `tm_key` (`channel`,`date`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+CREATE TABLE `temperature_log` (
+	`channel` int(10) NOT NULL,
+	`tem` MEDIUMTEXT NOT NULL,
+	`stock` MEDIUMTEXT DEFAULT NULL, -- 后台配置1是否存
+	`unstock` MEDIUMTEXT DEFAULT NULL, -- 后台配置1是否存
+	`refer_tem` double DEFAULT NULL, -- 后台配置2是否存
+	`date` datetime NOT NULL,
+  KEY `tm_key` (`channel`,`date`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+CREATE TABLE `config` (
+	`switchcom` int(10) NOT NULL,
+	`port` int(10) NOT NULL,
+	`date` datetime NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+CREATE TABLE `channels` (
+	`channel` int(10) NOT NULL,
+	`length` int(10) NOT NULL,
+	`date` datetime NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 #...done.

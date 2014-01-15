@@ -15,6 +15,7 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/assets/**" location="/assets/" />
+	<resources mapping="/assets/upload/**" location="/assets/upload/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -29,9 +30,9 @@
 	<beans:bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<beans:property name="url" value="jdbc:mysql://localhost:3306/dts" />
+		<beans:property name="url" value="jdbc:mysql://localhost:3306/dts?characterEncoding=gbk" />
 		<beans:property name="username" value="root" />
-<beans:property name="password" value="123456" />
+		<beans:property name="password" value="123456" />
 
 	</beans:bean>
 
@@ -44,8 +45,11 @@
   <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 	    
     <beans:bean id="saveTemTask" class ="tianci.pinao.dts.tasks.SaveTemTask" />
-    <beans:bean id="readTemTask" class ="tianci.pinao.dts.tasks.ReadTemTask" />
-    <beans:bean id="temReader" class ="tianci.pinao.dts.sal.TemReader" />
+    <beans:bean id="readTemTask" class ="tianci.pinao.dts.tasks.ReadTemTask">
+		<beans:property name="saveStock" value="false" />
+		<beans:property name="saveReferTem" value="false" />
+    </beans:bean>
+    <beans:bean id="logTemTask" class ="tianci.pinao.dts.tasks.LogTemTask" />
 		
 	<beans:bean id="saveTemTaskJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<beans:property name="targetObject" ref="saveTemTask" />
@@ -55,6 +59,10 @@
 		<beans:property name="targetObject" ref="readTemTask" />
 		<beans:property name="targetMethod" value="run" />
 	</beans:bean>
+	<beans:bean id="logTemTaskJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<beans:property name="targetObject" ref="logTemTask" />
+		<beans:property name="targetMethod" value="run" />
+	</beans:bean>
 	
 	<beans:bean id="saveTemTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<beans:property name="jobDetail" ref="saveTemTaskJob" />
@@ -62,6 +70,10 @@
 	</beans:bean>
 	<beans:bean id="readTemTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<beans:property name="jobDetail" ref="readTemTaskJob" />
+		<beans:property name="cronExpression" value="0/4 * * * * ?" />
+	</beans:bean>
+	<beans:bean id="logTemTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<beans:property name="jobDetail" ref="logTemTaskJob" />
 		<beans:property name="cronExpression" value="0 * * * * ?" />
 	</beans:bean>
 	
@@ -77,8 +89,9 @@
 		<beans:property name="triggers">
 			<beans:list>
 				<!-- 定时任务 -->
-                <beans:ref bean="saveTemTaskTrigger" />
+                <!-- <beans:ref bean="saveTemTaskTrigger" />
                 <beans:ref bean="readTemTaskTrigger" />
+                <beans:ref bean="logTemTaskTrigger" /> -->
 			</beans:list>
 		</beans:property>
 	</beans:bean>

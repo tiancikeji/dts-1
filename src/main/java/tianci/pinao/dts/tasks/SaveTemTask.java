@@ -3,8 +3,6 @@ package tianci.pinao.dts.tasks;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +13,6 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import tianci.pinao.dts.models.Temperature;
@@ -30,6 +27,10 @@ public class SaveTemTask implements Runnable {
 
 	private String path = PinaoConstants.TEM_PATH;
 
+	public static void main(String[] args) {
+		new SaveTemTask().run();
+	}
+	
     @Override
     public void run() {
     	long start = System.currentTimeMillis();
@@ -69,16 +70,16 @@ public class SaveTemTask implements Runnable {
 		    					String line = sc.nextLine();
 		    					if(StringUtils.isNotBlank(line)){
 		    						String[] cols = StringUtils.split(line, PinaoConstants.TEM_DATA_COL_SEP);
-		    						if(cols != null && cols.length > 7){
+		    						if(cols != null && cols.length > 1){
 		    							Temperature tem = new Temperature();
-		    							tem.setSwitchCom(NumberUtils.toInt(cols[0]));
-		    							tem.setPort(NumberUtils.toInt(cols[1]));
-		    							tem.setChannel(NumberUtils.toInt(cols[2]));
-		    							tem.setLength(NumberUtils.toInt(cols[3]));
-		    							tem.setStock(NumberUtils.toDouble(cols[4]));
-		    							tem.setUnstock(NumberUtils.toDouble(cols[5]));
-		    							tem.setReferTem(NumberUtils.toDouble(cols[6]));
-		    							tem.setTem(NumberUtils.toDouble(cols[7]));
+		    							tem.setChannel(NumberUtils.toInt(cols[0]));
+		    							tem.setTem(cols[1]);
+		    							if(cols.length > 3)
+		    								tem.setStock(cols[2]);
+		    							if(cols.length > 4)
+		    								tem.setUnstock(cols[3]);
+		    							if(cols.length > 5)
+		    								tem.setReferTem(NumberUtils.toDouble(cols[4]));
 		    							temps.add(tem);
 		    						}
 		    					}
@@ -86,30 +87,37 @@ public class SaveTemTask implements Runnable {
 		    				sc.close();
 		    				
 					    	// 4. save into db
-		    				if(temps.size() > 0)
-		    					jdbcTemplate.batchUpdate("insert into dts.temperature(switch_com,port,channel,length,stock,unstock,refer_tem,tem,date) values(?,?,?,?,?,?,?,?,?)", new BatchPreparedStatementSetter() {
-									@Override
-									public void setValues(PreparedStatement ps, int index) throws SQLException {
-										if(index < temps.size()){
-											Temperature tem = temps.get(index);
-											if(tem != null){
-												ps.setInt(1, tem.getSwitchCom());
-												ps.setInt(2, tem.getPort());
-												ps.setInt(3, tem.getChannel());
-												ps.setInt(4, tem.getLength());
-												ps.setDouble(5, tem.getStock());
-												ps.setDouble(6, tem.getUnstock());
-												ps.setDouble(7, tem.getReferTem());
-												ps.setDouble(8, tem.getTem());
-												ps.setTimestamp(9, new Timestamp(date));
-											}
-										}
-									}
-									@Override
-									public int getBatchSize() {
-										return temps.size();
-									}
-								});
+		    				if(temps.size() > 0){
+		    					for(final Temperature tm : temps){
+		    						String sqlh = "insert into dts.temperature(channel,tem,";
+		    						String sqlt = " values(?,?,";
+		    						List<Object> params = new ArrayList<Object>();
+		    						
+		    						params.add(tm.getChannel());
+		    						params.add(tm.getTem());
+		    						
+		    						if(StringUtils.isNotBlank(tm.getStock())){
+		    							sqlh += "stock,";
+		    							sqlt += "?,";
+		    							params.add(tm.getStock());
+		    						}
+									if(StringUtils.isNotBlank(tm.getUnstock())){
+		    							sqlh += "unstock,";
+										sqlt += "?,";
+		    							params.add(tm.getUnstock());
+		    						}
+									if(tm.getReferTem() > 0){
+		    							sqlh += "refer_tem,";
+										sqlt += "?,";
+		    							params.add(tm.getReferTem());
+		    						}
+	    							sqlh += "date)";
+									sqlt += "?)";
+									params.add(new Timestamp(date));
+									
+									jdbcTemplate.update(sqlh + sqlt, params.toArray());
+		    					}
+		    				}
 		    				
 					    	// 5. delete files
 		    				path.delete();

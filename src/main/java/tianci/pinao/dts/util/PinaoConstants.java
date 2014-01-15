@@ -6,6 +6,8 @@ public interface PinaoConstants {
 	
 	public static final String TEM_READ_SUFFIX = "read.txt";
 	
+	public static final String TEM_DATA_ELEMENT_SEP = ",";
+	
 	public static final String TEM_DATA_COL_SEP = "\t";
 	
 	public static final String TEM_DATA_LINE_SEP = "\n";
