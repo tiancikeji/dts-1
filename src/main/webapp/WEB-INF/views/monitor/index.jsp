@@ -185,4 +185,114 @@
 </div>
 <!-- //container -->
 </body>
+<script>
+	$.ajax({
+		url : _requestPath+".json",
+		type : "get",
+		dataType : "json",
+		success : init_data
+	});
+	
+	function init_data(data) {
+		if(data != null){
+			var tmp=[{
+					name : "title",
+					data : cables
+				} ,{
+					name : "title",
+					data : cables
+				} ];
+			var result = new Array();
+			var mintem = -1;
+			var maxtem = -1;
+			var minlength=-1;
+			var maxlength=-1;
+			for(var key in data){
+				var cables = new Array();
+				
+				var value = data[key];
+				for (var i = 0; i < value.length; i++){
+					var tmptemp = parseFloat(value[i].temperature);
+					if(mintem == -1)
+						mintem = tmptemp;
+					if(tmptemp < mintem)
+						mintem = tmptemp;
+					if(tmptemp > maxtem)
+						maxtem = tmptemp;
+					
+					var length = parseInt(value[i].length);
+					if(minlength==-1)
+						minlength=length;
+					if(minlength > length)
+						minlength=length;
+					if(maxlength < length)
+						maxlength=length;
+						
+					
+					cables[i] = [ length , tmptemp ];
+				}
+				result[result.length]={
+						name : "S"+key,
+						data : cables
+				};
+			}
+			/* for (var i = 0; i < data.length; i++) {
+				var tmptemp = parseFloat(data[i].temperature);
+				if(mintem == -1)
+					mintem = tmptemp;
+				if(tmptemp < mintem)
+					mintem = tmptemp;
+				if(tmptemp > maxtem)
+					maxtem = tmptemp;
+				
+				var length = parseInt(data[i].length);
+				if(minlength==-1)
+					minlength=length;
+				if(minlength > length)
+					minlength=length;
+				if(maxlength < length)
+					maxlength=length;
+					
+				
+				cables[i] = [ length , tmptemp ];
+			} */
+			mintem=mintem - 1;
+			maxtem = maxtem + 1;
+			if(mintem <= 0)
+				mintem = 0;
+			
+			minlength=minlength - 1;
+			maxlength = maxlength + 1;
+			if(minlength <= 0)
+				minlength = 0;
+			$('#highcharts').highcharts({
+				chart : {
+					type : 'spline'
+				},
+				title : {
+					text : '温度图表'
+				},
+				xAxis : {
+					type : '长度',
+					min : minlength,
+					max : maxlength
+				},
+				yAxis : {
+					title : {
+						text : '温度'
+					},
+					min : mintem,
+					max : maxtem
+				},
+				// tooltip: {
+				// formatter: function() {
+				// return '<b>'+ this.series.name +'</b><br/>'+
+				// Highcharts.dateFormat('%e. %b', this.x) +': '+ this.y +' m';
+				// }
+				// },
+				series : result
+			});
+		}
+	}
+</script>
 </html>

@@ -1,4 +1,4 @@
-$(function() {
+/*$(function() {
 	var cables = new Array();
 	$.ajax({
 		url : _requestPath+".json",
@@ -42,4 +42,4 @@ $(function() {
 	}
 
 
-});
+});*/

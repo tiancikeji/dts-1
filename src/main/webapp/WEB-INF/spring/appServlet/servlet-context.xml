@@ -12,6 +12,22 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
+	<!-- config -->
+	<beans:bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="locations">
+			<beans:list>
+				<beans:value>classpath:dts.properties</beans:value>
+			</beans:list>
+		</beans:property>
+		<beans:property name="placeholderPrefix">
+			<beans:value>#[</beans:value>
+		</beans:property>
+		<beans:property name="placeholderSuffix">
+			<beans:value>]</beans:value>
+		</beans:property>
+	</beans:bean>
+
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/assets/**" location="/assets/" />
@@ -30,9 +46,15 @@
 	<beans:bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<beans:property name="url" value="jdbc:mysql://localhost:3306/dts?characterEncoding=gbk" />
-		<beans:property name="username" value="root" />
-		<beans:property name="password" value="123456" />
+		<beans:property name="url">
+			<beans:value>#[jdbc.url]</beans:value>
+		</beans:property>
+		<beans:property name="username">
+			<beans:value>#[jdbc.username]</beans:value>
+		</beans:property>
+		<beans:property name="password">
+			<beans:value>#[jdbc.password]</beans:value>
+		</beans:property>
 
 	</beans:bean>
 
@@ -44,12 +66,31 @@
 	    <!-- 开启SpringMVC上传下载功能 -->
   <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 	    
-    <beans:bean id="saveTemTask" class ="tianci.pinao.dts.tasks.SaveTemTask" />
-    <beans:bean id="readTemTask" class ="tianci.pinao.dts.tasks.ReadTemTask">
-		<beans:property name="saveStock" value="false" />
-		<beans:property name="saveReferTem" value="false" />
+    <!-- log & back up -->
+    <beans:bean id="temDao" class="tianci.pinao.dts.tasks.dao.impl.TemDaoImpl">
+		<beans:property name="jdbcTemplate" ref="jdbcTemplate" />
     </beans:bean>
-    <beans:bean id="logTemTask" class ="tianci.pinao.dts.tasks.LogTemTask" />
+    <beans:bean id="temTaskService" class="tianci.pinao.dts.tasks.service.impl.TemTaskServiceImpl">
+		<beans:property name="temDao" ref="temDao" />
+		
+		<beans:property name="saveStock">
+			<beans:value>#[tem.stock]</beans:value>
+		</beans:property>
+		<beans:property name="saveReferTem">
+			<beans:value>#[tem.referTem]</beans:value>
+		</beans:property>
+		<beans:property name="channelsService" ref="channelsService" />
+    </beans:bean>
+    
+    <beans:bean id="logTemTask" class ="tianci.pinao.dts.tasks.LogTemTask">
+		<beans:property name="temTaskService" ref="temTaskService" />
+    </beans:bean>
+    <beans:bean id="readTemTask" class ="tianci.pinao.dts.tasks.ReadTemTask">
+		<beans:property name="temTaskService" ref="temTaskService" />
+    </beans:bean>
+    <beans:bean id="saveTemTask" class ="tianci.pinao.dts.tasks.SaveTemTask">
+		<beans:property name="temTaskService" ref="temTaskService" />
+    </beans:bean>
 		
 	<beans:bean id="saveTemTaskJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<beans:property name="targetObject" ref="saveTemTask" />
@@ -64,17 +105,23 @@
 		<beans:property name="targetMethod" value="run" />
 	</beans:bean>
 	
-	<beans:bean id="saveTemTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	<beans:bean id="saveTemTaskTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<beans:property name="jobDetail" ref="saveTemTaskJob" />
-		<beans:property name="cronExpression" value="0/4 * * * * ?" />
+	    <beans:property name="startDelay" value="1000" />
+	    <beans:property name="repeatInterval" value="100" />
+	    <beans:property name="repeatCount" value="-1" />
 	</beans:bean>
-	<beans:bean id="readTemTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	<beans:bean id="readTemTaskTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<beans:property name="jobDetail" ref="readTemTaskJob" />
-		<beans:property name="cronExpression" value="0/4 * * * * ?" />
+	    <beans:property name="startDelay" value="1000" />
+	    <beans:property name="repeatInterval" value="100" />
+	    <beans:property name="repeatCount" value="-1" />
 	</beans:bean>
-	<beans:bean id="logTemTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	<beans:bean id="logTemTaskTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<beans:property name="jobDetail" ref="logTemTaskJob" />
-		<beans:property name="cronExpression" value="0 * * * * ?" />
+	    <beans:property name="startDelay" value="1000" />
+	    <beans:property name="repeatInterval" value="100" />
+	    <beans:property name="repeatCount" value="-1" />
 	</beans:bean>
 	
 	<beans:bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
@@ -88,10 +135,9 @@
 		</beans:property>
 		<beans:property name="triggers">
 			<beans:list>
-				<!-- 定时任务 -->
-                <!-- <beans:ref bean="saveTemTaskTrigger" />
-                <beans:ref bean="readTemTaskTrigger" />
-                <beans:ref bean="logTemTaskTrigger" /> -->
+                <!--<beans:ref bean="logTemTaskTrigger" />
+                beans:ref bean="saveTemTaskTrigger" />
+                <beans:ref bean="readTemTaskTrigger" /-->
 			</beans:list>
 		</beans:property>
 	</beans:bean>
